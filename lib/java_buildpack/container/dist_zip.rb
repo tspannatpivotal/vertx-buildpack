@@ -48,6 +48,7 @@ module JavaBuildpack
         start_script(root) &&
           start_script(root).exist? &&
           jars? &&
+	  !verticle? &&
           !@ratpack_utils.is?(@application) &&
           !@spring_boot_utils.is?(@application) &&
           !JavaBuildpack::Util::Play::Factory.create(@droplet)
@@ -62,6 +63,12 @@ module JavaBuildpack
       def lib_dir
         root + 'lib'
       end
+
+      def verticle?
+          (@application.root + 'mod.json').exist?
+      end
+
+
 
     end
 
